@@ -21,6 +21,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
@@ -29,9 +30,9 @@ before_install:
   - phantomjs --version
 
 install:
-  - travis_wait npm install
+  - npm install
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - travis_wait node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
